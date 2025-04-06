@@ -21,3 +21,7 @@ This project is a **Pac-Man-style game**, but instead of manual controls, the Pa
   - **Score-based rewards** for collecting " * " and avoiding ghosts.  
   - Adjustable **difficulty settings** for AI complexity.  
 
+
+
+https://github.com/user-attachments/assets/16d44380-fdc2-4d68-a1d3-574f499225f0
+
