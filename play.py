@@ -1,7 +1,7 @@
 num_nodes =0
-from pacman import pacman
+from chor import chor
 from game import game
-from ghosts import ghosts
+from polices import polices
 from utility import utility
 
 import time
@@ -14,10 +14,10 @@ class play:
     def __init__(self) -> None:
         self.game = game()
         self.score = self.game.score
-        self.ghosts = ghosts()
+        self.polices = polices()
         self.state = self.game.get_board()
         self.utility = utility()
-        self.pacman = pacman()
+        self.chor = chor()
         self.prev_time = time.time()
 
     def start(self):
@@ -30,58 +30,58 @@ class play:
                 time.sleep(sleep_time)
             self.prev_time = time.time()
             
-            # print(self.game.pacman_position,self.game.ghost1_position)
+            # print(self.game.chor_position,self.game.police1_position)
             # print(self.game.num_nodes_explored,self.utility.num_nodes)
 
-            if self.game.pacman_position == self.game.ghost1_position and self.game.pacman_position == self.game.ghost2_position:
-                print(self.game.pacman_position,self.game.ghost1_position,"dfonigf")
-                print("Pacman is caught by a ghost!")
+            if self.game.chor_position == self.game.police1_position and self.game.chor_position == self.game.police2_position:
+                print(self.game.chor_position,self.game.police1_position,"dfonigf")
+                print("chor is caught by a police!")
                 break
 
             if self.utility.is_game_finished(self.game):
-                if self.utility.is_pacman_win(self.game):
-                    print("** PACMAN IS WIN !!!")
+                if self.utility.is_chor_win(self.game):
+                    print("** chor IS WIN !!!")
                 else:
-                    print("PACMAN LOST !")
+                    print("chor LOST !")
                     break
-            best_action = self.pacman.best_action(self.game)
-            new_pos_pacmans = self.pacman.moves_pacman(
-                self.game.get_pos_pacman(),
+            best_action = self.chor.best_action(self.game)
+            new_pos_chors = self.chor.moves_chor(
+                self.game.get_pos_chor(),
                 best_action,
                 self.game.get_size(),
                 self.game.get_board(),
             )
 
-            self.game.set_pos_pacman(new_pos_pacmans)
+            self.game.set_pos_chor(new_pos_chors)
 
-            pos_g1 = self.game.get_pos_ghost(1)
-            pos_g2 = self.game.get_pos_ghost(2)
+            pos_g1 = self.game.get_pos_police(1)
+            pos_g2 = self.game.get_pos_police(2)
 
             self.game.score -= 1
 
-            poses = self.ghosts.move_ghosts(
-                pos_g1, pos_g2, self.game.get_board(), self.game.get_size(),self.game.get_pos_pacman()
+            poses = self.polices.move_polices(
+                pos_g1, pos_g2, self.game.get_board(), self.game.get_size(),self.game.get_pos_chor()
             )
 
-            self.game.set_pos_ghost(1, poses["ghosts1"])
-            self.game.set_pos_ghost(2, poses["ghosts2"])
+            self.game.set_pos_police(1, poses["polices1"])
+            self.game.set_pos_police(2, poses["polices2"])
 
-            # if self.game.get_pos_pacman() == self.game.get_pos_ghost(
+            # if self.game.get_pos_chor() == self.game.get_pos_police(
             #     1
-            # ) or self.game.get_pos_pacman() == self.game.get_pos_ghost(2):
-            #     print("Pacman is caught by a ghost!")
+            # ) or self.game.get_pos_chor() == self.game.get_pos_police(2):
+            #     print("chor is caught by a police!")
             #     break
 
             if (
-                self.game.get_board()[self.game.get_pos_pacman()[0]][
-                    self.game.get_pos_pacman()[1]
+                self.game.get_board()[self.game.get_pos_chor()[0]][
+                    self.game.get_pos_chor()[1]
                 ]
                 == "*"
             ):
                 self.game.score += 10
                 board = self.game.get_board()
-                board[self.game.get_pos_pacman()[0]][
-                    self.game.get_pos_pacman()[1]
+                board[self.game.get_pos_chor()[0]][
+                    self.game.get_pos_chor()[1]
                 ] = " "
                 self.game.set_board(board)
 
