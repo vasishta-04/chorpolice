@@ -10,16 +10,16 @@ class game:
         self,
         size_board=(9, 18),
         number_of_wall=30,
-        pacman_position=(6,14),
-        ghost1_position=None,
-        ghost2_position=None,
+        chor_position=(6,14),
+        police1_position=None,
+        police2_position=None,
         score=0
     ) -> None:
         self.size_board = size_board
         self.number_of_wall = number_of_wall
-        self.pacman_position = pacman_position
-        self.ghost1_position = (6, 10)
-        self.ghost2_position = (6,9)
+        self.chor_position = chor_position
+        self.police1_position = (6, 10)
+        self.police2_position = (6,9)
         self.score = score
         self.num_nodes_explored = 0
 
@@ -30,14 +30,14 @@ class game:
     def get_score(self) -> int:
         return self.score
 
-    def get_pos_pacman(self) -> Tuple:
-        return self.pacman_position
+    def get_pos_chor(self) -> Tuple:
+        return self.chor_position
 
-    def get_pos_ghost(self, choice: int) -> Tuple:
+    def get_pos_police(self, choice: int) -> Tuple:
         if choice == 1:
-            return self.ghost1_position
+            return self.police1_position
         elif choice == 2:
-            return self.ghost2_position
+            return self.police2_position
 
     def get_board(self) -> List:
         return self.board
@@ -45,14 +45,14 @@ class game:
     def set_board(self, board) -> None:
         self.board = board
 
-    def set_pos_pacman(self, new_pos) -> None:
-        self.pacman_position = new_pos
+    def set_pos_chor(self, new_pos) -> None:
+        self.chor_position = new_pos
 
-    def set_pos_ghost(self, choice: int, new_pos) -> Tuple:
+    def set_pos_police(self, choice: int, new_pos) -> Tuple:
         if choice == 1:
-            self.ghost1_position = new_pos
+            self.police1_position = new_pos
         elif choice == 2:
-            self.ghost2_position = new_pos
+            self.police2_position = new_pos
 
     def set_score(self, score):
         self.score = score
@@ -80,9 +80,9 @@ class game:
         #         0, self.size_board[1] - 1
         #     )
         #     if (
-        #         (i, j) == self.pacman_position
-        #         or (i, j) == self.ghost1_position
-        #         or (i, j) == self.ghost2_position
+        #         (i, j) == self.chor_position
+        #         or (i, j) == self.police1_position
+        #         or (i, j) == self.police2_position
         #         or self.board[i][j] == "-"
         #     ):
         #         continue
@@ -96,25 +96,25 @@ class game:
         
         for x in range(self.size_board[0]):
             for y in range(self.size_board[1]):
-                if (x, y) == self.pacman_position:
+                if (x, y) == self.chor_position:
                     print("P", end=" ")
-                elif (x, y) == self.ghost1_position:
+                elif (x, y) == self.police1_position:
                     print("G", end=" ")
-                elif (x, y) == self.ghost2_position:
+                elif (x, y) == self.police2_position:
                     print("G", end=" ")
                 else:
                     print(self.board[x][y], end=" ")
             print()
         print(f"                                                Score: {self.score}")
 
-    def get_pos_pacman(self) -> Tuple:
-        return self.pacman_position
+    def get_pos_chor(self) -> Tuple:
+        return self.chor_position
 
-    def get_pos_ghost(self, choice: int) -> Tuple:
+    def get_pos_police(self, choice: int) -> Tuple:
         if choice == 1:
-            return self.ghost1_position
+            return self.police1_position
         elif choice == 2:
-            return self.ghost2_position
+            return self.police2_position
         
     def incriment_num_nodes(self):
         self.num_nodes_explored+=1
